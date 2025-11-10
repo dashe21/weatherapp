@@ -33,8 +33,12 @@ cityInput.addEventListener('keypress', (e) => {
     }
 });
 cityInput.addEventListener('input', () => {
-    // Show clear button when there's a saved search and input has content
-    updateClearButtonVisibility();
+    // Show clear button when user is typing or there's content
+    if (cityInput.value.length > 0) {
+        clearLastSearchBtn.style.display = 'flex';
+    } else {
+        updateClearButtonVisibility();
+    }
 });
 
 // Main function to get weather data
