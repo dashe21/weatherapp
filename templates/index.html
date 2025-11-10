@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <h1 class="nav-title">🌤️ Weather Dashboard</h1>
+            <div class="search-container">
+                <div class="last-search-indicator" id="lastSearchIndicator" style="display: none;">
+                    <span class="indicator-icon">🔄</span>
+                    <span class="indicator-text">Loading your last search...</span>
+                </div>
+                <div class="search-input-group">
+                    <input 
+                        type="text" 
+                        id="cityInput" 
+                        placeholder="Search for a city..."
+                        autocomplete="off"
+                    >
+                    <button id="getWeatherBtn">Search</button>
+                    <button id="clearLastSearchBtn" title="Clear saved search" style="display: none;">✕</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading State -->
+    <div class="loading-overlay" id="loading" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Fetching weather data...</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="weatherResult" style="display: none;">
+        <!-- Current Weather Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="location-info">
+                    <h2 id="cityName" class="city-name"></h2>
+                    <p id="currentDate" class="current-date"></p>
+                </div>
+                <div class="current-weather">
+                    <div class="weather-icon-large">
+                        <img id="weatherIcon" src="" alt="Weather icon" class="main-weather-icon">
+                    </div>
+                    <div class="temperature-display">
+                        <span class="main-temperature" id="temperature"></span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-description">
+                        <p id="weatherDescription" class="description"></p>
+                        <p id="feelsLike" class="feels-like">Feels like</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Details Grid -->
+        <section class="details-section">
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">💧</div>
+                    <div class="detail-content">
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value" id="humidity"></span>
+                    </div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">🌪️</div>
+                    <div class="detail-content">
+                        <span class="detail-label">Wind Speed</span>
+                        <span class="detail-value" id="windSpeed"></span>
+                    </div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">📏</div>
+                    <div class="detail-content">
+                        <span class="detail-label">Pressure</span>
+                        <span class="detail-value" id="pressure"></span>
+                    </div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">👁️</div>
+                    <div class="detail-content">
+                        <span class="detail-label">Visibility</span>
+                        <span class="detail-value" id="visibility"></span>
+                    </div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">🌅</div>
+                    <div class="detail-content">
+                        <span class="detail-label">Sunrise</span>
+                        <span class="detail-value" id="sunriseTime"></span>
+                    </div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">🌇</div>
+                    <div class="detail-content">
+                        <span class="detail-label">Sunset</span>
+                        <span class="detail-value" id="sunsetTime"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5-Day Forecast Section -->
+        <section class="forecast-section">
+            <h3 class="section-title">5-Day Forecast</h3>
+            <div class="forecast-container" id="forecastContainer">
+                <!-- Forecast cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Hourly Forecast Section -->
+        <section class="hourly-section">
+            <h3 class="section-title">Next 24 Hours</h3>
+            <div class="hourly-container" id="hourlyContainer">
+                <!-- Hourly forecast will be generated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Error Message -->
+    <div class="error-overlay" id="errorMessage" style="display: none;">
+        <div class="error-content">
+            <h2>Oops!</h2>
+            <p id="errorText"></p>
+            <button onclick="hideError()" class="error-btn">Try Again</button>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
