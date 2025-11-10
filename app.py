@@ -156,4 +156,7 @@ def get_weather():
         return jsonify({'error': 'An unexpected error occurred'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Render's Gunicorn will run the app, so this block is not strictly
+    # needed for production, but it's good practice for local testing.
+    # It won't be executed on Render.
+    app.run(host='0.0.0.0', port=5000, debug=False)
