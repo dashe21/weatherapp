@@ -16,16 +16,18 @@
                     <span class="indicator-icon">🔄</span>
                     <span class="indicator-text">Loading your last search...</span>
                 </div>
-                <div class="search-input-group">
-                    <input 
-                        type="text" 
-                        id="cityInput" 
-                        placeholder="Search for a city..."
-                        autocomplete="off"
-                    >
-                    <button id="getWeatherBtn">Search</button>
+                <div class="search-input-wrapper">
                     <button id="clearLastSearchBtn" title="Clear saved search" style="display: none;">✕</button>
+                    <div class="search-input-group">
+                        <input 
+                            type="text" 
+                            id="cityInput" 
+                            placeholder="Search for a city..."
+                            autocomplete="off"
+                        >
+                    </div>
                 </div>
+                <button id="getWeatherBtn">Search</button>
             </div>
         </div>
     </nav>
