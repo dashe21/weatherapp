@@ -88,21 +88,23 @@ body {
 
 .search-input-group {
     display: flex;
-    gap: 12px;
+    align-items: center;
     background: white;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 8px;
+    position: relative;
 }
 
 #cityInput {
     flex: 1;
-    padding: 15px 20px;
+    padding: 15px 20px 15px 20px;
     border: none;
     border-radius: 50px;
     font-size: 16px;
     outline: none;
     background: transparent;
+    padding-right: 120px;
 }
 
 #cityInput::placeholder {
@@ -110,12 +112,16 @@ body {
 }
 
 #getWeatherBtn {
-    padding: 15px 30px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 12px 24px;
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     border: none;
     border-radius: 50px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -128,19 +134,25 @@ body {
 }
 
 #clearLastSearchBtn {
+    position: absolute;
+    right: 90px;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: #f44336;
     color: white;
     border: none;
-    padding: 15px 18px;
+    padding: 8px 12px;
     border-radius: 50px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 50px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 #clearLastSearchBtn:hover {
@@ -590,24 +602,28 @@ body {
     }
     
     .search-input-group {
-        flex-direction: row;
-        gap: 8px;
         padding: 6px;
+        position: relative;
     }
     
     #cityInput {
         padding: 12px 16px;
+        padding-right: 100px;
         font-size: 15px;
     }
     
     #getWeatherBtn {
-        padding: 12px 20px;
-        font-size: 15px;
+        right: 6px;
+        padding: 10px 20px;
+        font-size: 14px;
     }
     
     #clearLastSearchBtn {
-        padding: 12px 14px;
-        min-width: 44px;
+        right: 75px;
+        width: 28px;
+        height: 28px;
+        padding: 6px;
+        font-size: 12px;
     }
     
     .main-content {
@@ -681,24 +697,37 @@ body {
     
     .search-input-group {
         flex-direction: column;
-        gap: 6px;
-        padding: 6px;
+        gap: 8px;
+        padding: 8px;
+        position: relative;
     }
     
     #cityInput {
-        padding: 12px 16px;
+        padding: 14px 18px;
+        padding-right: 18px;
         font-size: 16px;
     }
     
     #getWeatherBtn {
-        padding: 12px 20px;
-        font-size: 15px;
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        padding: 14px 24px;
+        font-size: 16px;
+        align-self: stretch;
     }
     
     #clearLastSearchBtn {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
         padding: 12px 16px;
         align-self: center;
-        max-width: 48px;
+        width: 48px;
+        height: 48px;
+        font-size: 16px;
     }
     
     .main-content {
