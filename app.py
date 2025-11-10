@@ -70,10 +70,8 @@ def get_weather():
                 'feels_like': round(weather_data['main']['feels_like']),
                 'pressure': weather_data['main']['pressure'],
                 'wind_speed': weather_data.get('wind', {}).get('speed', 0),
-                'wind_direction': weather_data.get('wind', {}).get('deg', 0),
                 'visibility': weather_data.get('visibility', 0) // 1000,  # Convert to km
                 'weather_icon': weather_data['weather'][0]['icon'],
-                'weather_main': weather_data['weather'][0]['main'],
                 'sunrise': weather_data['sys']['sunrise'],
                 'sunset': weather_data['sys']['sunset'],
                 'timezone': weather_data['timezone']
@@ -95,18 +93,14 @@ def get_weather():
                 for item in forecast_data['list'][:40]:  # 5 days * 8 (3-hour intervals)
                     dt = item['dt']
                     date_str = str(item['dt_txt'].split(' ')[0])
-                    hour = int(item['dt_txt'].split(' ')[1].split(':')[0])
                     
                     # Collect hourly data for next 24 hours (8 items)
                     if len(hourly_forecast) < 8:
                         hourly_forecast.append({
-                            'time': item['dt_txt'],
                             'timestamp': dt,
                             'temperature': round(item['main']['temp']),
                             'description': item['weather'][0]['description'].title(),
-                            'icon': item['weather'][0]['icon'],
-                            'humidity': item['main']['humidity'],
-                            'wind_speed': item.get('wind', {}).get('speed', 0)
+                            'icon': item['weather'][0]['icon']
                         })
                     
                     # Group by day for daily forecast
@@ -115,16 +109,12 @@ def get_weather():
                             'temps': [],
                             'descriptions': [],
                             'icons': [],
-                            'humidity': [],
-                            'wind_speed': [],
                             'dt': dt
                         }
                     
                     daily_temps[date_str]['temps'].append(item['main']['temp'])
                     daily_temps[date_str]['descriptions'].append(item['weather'][0]['description'])
                     daily_temps[date_str]['icons'].append(item['weather'][0]['icon'])
-                    daily_temps[date_str]['humidity'].append(item['main']['humidity'])
-                    daily_temps[date_str]['wind_speed'].append(item.get('wind', {}).get('speed', 0))
                 
                 # Create daily forecast from grouped data
                 for date_str, day_data in list(daily_temps.items())[:5]:  # Limit to 5 days
@@ -134,9 +124,7 @@ def get_weather():
                         'temp_max': round(max(day_data['temps'])),
                         'temp_min': round(min(day_data['temps'])),
                         'description': max(set(day_data['descriptions']), key=day_data['descriptions'].count).title(),
-                        'icon': max(set(day_data['icons']), key=day_data['icons'].count),
-                        'humidity': round(sum(day_data['humidity']) / len(day_data['humidity'])),
-                        'wind_speed': round(sum(day_data['wind_speed']) / len(day_data['wind_speed']), 1)
+                        'icon': max(set(day_data['icons']), key=day_data['icons'].count)
                     })
                 
                 result['forecast'] = {
@@ -152,11 +140,8 @@ def get_weather():
             
     except requests.RequestException:
         return jsonify({'error': 'Network error occurred'}), 500
-    except Exception as e:
+    except Exception:
         return jsonify({'error': 'An unexpected error occurred'}), 500
 
 if __name__ == '__main__':
-    # Render's Gunicorn will run the app, so this block is not strictly
-    # needed for production, but it's good practice for local testing.
-    # It won't be executed on Render.
     app.run(host='0.0.0.0', port=5000, debug=False)

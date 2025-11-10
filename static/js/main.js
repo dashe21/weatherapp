@@ -23,10 +23,12 @@ const sunsetTime = document.getElementById('sunsetTime');
 const forecastContainer = document.getElementById('forecastContainer');
 const hourlyContainer = document.getElementById('hourlyContainer');
 const errorText = document.getElementById('errorText');
+const errorBtn = document.getElementById('errorBtn');
 
 // Event listeners
 getWeatherBtn.addEventListener('click', getWeather);
 clearLastSearchBtn.addEventListener('click', clearLastSearch);
+errorBtn.addEventListener('click', hideError);
 cityInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         getWeather();
@@ -247,14 +249,11 @@ function loadLastSearch() {
     try {
         const lastSearch = localStorage.getItem('lastWeatherSearch');
         if (lastSearch) {
-            // Show loading indicator
             showLastSearchIndicator();
             cityInput.value = lastSearch;
             updateClearButtonVisibility();
             // Auto-load weather for the last searched city
-            setTimeout(() => {
-                getWeather();
-            }, 500); // Small delay to show the indicator
+            setTimeout(getWeather, 500);
         }
     } catch (error) {
         console.log('Could not load from localStorage:', error);
@@ -271,23 +270,22 @@ function showLastSearchIndicator() {
 
 // Hide last search indicator
 function hideLastSearchIndicator() {
-    if (lastSearchIndicator.style.display !== 'none') {
-        lastSearchIndicator.style.display = 'none';
-    }
+    lastSearchIndicator.style.display = 'none';
 }
 
 // Clear last search from localStorage
 function clearLastSearch() {
     try {
         localStorage.removeItem('lastWeatherSearch');
-        cityInput.value = '';
-        weatherResult.style.display = 'none';
-        hideError();
-        updateClearButtonVisibility();
-        cityInput.focus();
     } catch (error) {
         console.log('Could not clear localStorage:', error);
     }
+    
+    cityInput.value = '';
+    weatherResult.style.display = 'none';
+    hideError();
+    updateClearButtonVisibility();
+    cityInput.focus();
 }
 
 // Update clear button visibility
