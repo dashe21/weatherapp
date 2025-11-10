@@ -57,12 +57,12 @@ body {
     justify-content: center;
     gap: 8px;
     margin-bottom: 12px;
-    padding: 8px 16px;
+    padding: 6px 12px;
     background-color: #e3f2fd;
     border: 1px solid #bbdefb;
     border-radius: 12px;
     color: #1976d2;
-    font-size: 0.9em;
+    font-size: 0.85em;
     animation: slideIn 0.3s ease-out;
 }
 
@@ -611,7 +611,7 @@ body {
     }
     
     .main-content {
-        margin-top: 200px;
+        margin-top: 240px;
         padding: 0 20px 50px;
     }
     
@@ -664,38 +664,45 @@ body {
 
 @media (max-width: 480px) {
     .nav-content {
-        padding: 12px 15px;
-        gap: 12px;
+        padding: 10px 15px;
+        gap: 10px;
     }
     
     .nav-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    
+    .last-search-indicator {
+        padding: 4px 8px;
+        margin-bottom: 8px;
+        font-size: 0.8em;
     }
     
     .search-input-group {
         flex-direction: column;
-        gap: 8px;
-        padding: 8px;
+        gap: 6px;
+        padding: 6px;
     }
     
     #cityInput {
-        padding: 14px 18px;
+        padding: 12px 16px;
         font-size: 16px;
     }
     
     #getWeatherBtn {
-        padding: 14px 24px;
-        font-size: 16px;
+        padding: 12px 20px;
+        font-size: 15px;
     }
     
     #clearLastSearchBtn {
-        padding: 14px 18px;
+        padding: 12px 16px;
         align-self: center;
-        max-width: 50px;
+        max-width: 48px;
     }
     
     .main-content {
-        margin-top: 220px;
+        margin-top: 260px;
         padding: 0 15px 40px;
     }
     
