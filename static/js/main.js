@@ -6,6 +6,7 @@ const lastSearchIndicator = document.getElementById('lastSearchIndicator');
 const loading = document.getElementById('loading');
 const weatherResult = document.getElementById('weatherResult');
 const errorMessage = document.getElementById('errorMessage');
+const navHeader = document.querySelector('.nav-header');
 
 // Weather data elements
 const cityName = document.getElementById('cityName');
@@ -297,6 +298,47 @@ function updateClearButtonVisibility() {
         clearLastSearchBtn.style.display = 'none';
     }
 }
+
+// Header shrink functionality for mobile
+let lastScrollTop = 0;
+let ticking = false;
+
+function updateHeader() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
+            navHeader.classList.add('shrink');
+        } else if (scrollTop < lastScrollTop) {
+            // Scrolling up
+            navHeader.classList.remove('shrink');
+        }
+    } else {
+        // Remove shrink class on desktop
+        navHeader.classList.remove('shrink');
+    }
+    
+    lastScrollTop = scrollTop;
+    ticking = false;
+}
+
+function requestTick() {
+    if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+    }
+}
+
+// Event listeners for header shrinking
+window.addEventListener('scroll', requestTick);
+window.addEventListener('resize', function() {
+    // Reset header state on resize
+    if (window.innerWidth > 768) {
+        navHeader.classList.remove('shrink');
+    }
+});
 
 // Auto-focus on city input when page loads
 document.addEventListener('DOMContentLoaded', () => {
